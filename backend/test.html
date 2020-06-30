@@ -1,0 +1,120 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+
+<body>
+    <div style="padding-bottom: 5;">
+        <label for="inpURL"> URL</label>
+        <input id="inpURL" type="text">
+    </div>
+
+     <!-- <form id="frmForm">
+        <label for="inpName">Name</label>
+        <input id="inpName" type="text">
+        <label for="inpEmail">Email</label>
+        <input id="inpEmail" type="email">
+        <label for="inpWhatsapp">Whatsapp</label>
+        <input id="inpWhatsapp" type="text">
+        <label for="inpCity">City</label>
+        <input id="inpCity" type="text">
+        <label for="inpUF">UF</label>
+        <input id="inpUF" type="text">
+        <button id="btnPost" type="submit">Post</button>
+    </form> -->
+    <button id="btnPost" onclick="postData()">Post</button>
+
+    <button id="btnGet" onclick="fetchData()">Get</button>
+</body>
+<script>
+    
+    const frmForm = document.getElementById('btnPost')
+
+    frmForm.addEventListener("submit", postData, true)
+
+
+    async function fetchData() {
+        const res = await fetch(document.getElementById('inpURL').value);
+        if (res.ok) {
+            let resp = await res.json();
+            
+            console.log(resp);
+
+        } else {
+            console.log('erro: ' + res.status)
+        }
+    }
+
+
+    async  function postData() {
+        
+
+
+        var data = JSON.stringify({
+
+            // "name": document.getElementById('inpName').value,
+            // "email": document.getElementById('inpEmail').value,
+            // "whatsapp": document.getElementById('inpWhatsapp').value,
+            // "city": document.getElementById('inpCity').value,
+            // "uf": document.getElementById('inpUF').value
+            
+             "name": "123123",
+             "email": "asd@as.sa",
+             "whatsapp": "123123123",
+             "city": "as",
+             "uf": "as"
+
+        });
+
+        const res = await fetch(document.getElementById('inpURL').value, {
+            method: "post",
+            body: data,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        
+        if (res.ok) {
+            let resp = await res.json();
+            console.log(resp);
+        } else {
+            console.log('erro: ' + res.status)
+        }
+        
+        // if (res.ok) {
+        //     console.log(res);
+
+        // } else {
+        //     alert(`erro ${res.status}: ${res.statusText}`);
+        // }
+
+        
+   
+        
+    }
+
+// xhr.open("post", url, true);
+// xhr.setRequestHeader("Content-Type", "application/json");
+// xhr.onreadystatechange = function () {
+//     if (xhr.readyState === 4 && xhr.status === 200) {
+//         var json = JSON.parse(xhr.responseText);
+
+//     }
+// };
+// var data = JSON.stringify({
+
+//               "name":"caio",
+//               "email":"asdasd@saags.as",
+//               "whatsapp":"123112323",
+//               "city":"sp",
+//               "uf":"sp"
+
+//        });
+// xhr.send(data);
+
+
+</script>
+
+</html>

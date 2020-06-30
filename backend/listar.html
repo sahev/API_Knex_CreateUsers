@@ -1,0 +1,82 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+    th{ 
+        color:#fff;
+            }
+</style>
+
+<body>
+<table class="table table-striped">
+    <tr  class="bg-info">
+        <th>id</th>
+        <th>name</th>
+        <th>email</th>
+        <th>whatsapp</th>
+        <th>city</th>
+        <th>uf</th>
+        <th></th>
+    </tr>
+
+
+
+    <!-- <button id="btnGet" onclick="fetchData()">Get</button> -->
+
+    <tbody id="myTable">
+        
+
+
+    </tbody>
+
+</table>
+</body>
+
+    <button class="bg-info" onclick="location.href='/novo.html'" type="button">Novo Usuário</button>
+
+    <button class="bg-info" onclick="location.href='/index.html'" type="button">Voltar</button>
+
+<script>
+
+let url = 'http://localhost:3333/ongs'
+
+fetch(url).then((resp) => resp.json()).then(function(data) {
+    let pessoas = data;
+
+ return pessoas.map((pessoa) => {
+    
+     //console.log('user => ' + pessoa.id, pessoa.name, pessoa.email, pessoa.whatsapp, pessoa.city, pessoa.uf);
+
+    
+    var table = document.getElementById('myTable')
+
+    var row = `<tr>
+        <td>${pessoa.id}</td>
+        <td>${pessoa.name}</td>
+        <td>${pessoa.email}</td>
+        <td>${pessoa.whatsapp}</td>
+        <td>${pessoa.city}</td>
+        <td>${pessoa.uf}</td>
+        <td><img src="https://image.flaticon.com/icons/svg/901/901783.svg" alt="Apagar item" type=submit onclick="deletar('${url}', '${pessoa.id}')"></td>
+    </tr>`
+    
+    table.innerHTML += row
+
+})	
+   console.log('data => ' + data);
+
+})
+
+
+
+    function deletar(url, id) {
+    fetch(url + '/' + id, {
+  method: 'DELETE',
+})
+.then(res => res.text()) 
+.then(res => console.log(res))
+}
+
+
+</script>

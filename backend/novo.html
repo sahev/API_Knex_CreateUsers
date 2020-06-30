@@ -1,0 +1,80 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+    th{ 
+        color:#fff;
+            }
+</style>
+
+<body>
+
+        <form id="frmForm">
+        <label for="inpName">Name</label>
+        <input id="inpName" type="text">
+        <label for="inpEmail">Email</label>
+        <input id="inpEmail" type="email">
+        <label for="inpWhatsapp">Whatsapp</label>
+        <input id="inpWhatsapp" type="text">
+        <label for="inpCity">City</label>
+        <input id="inpCity" type="text">
+        <label for="inpUF">UF</label>
+        <input id="inpUF" type="text">
+        <button class="bg-info" id="btnPost" type="submit" onclick="postData()">Cadastrar</button>
+        <button class="bg-info" onclick="location.href='/index.html'" type="button">Voltar</button>
+    </form> 
+    
+
+    <!--<button id="btnPost" onclick="postData()">Post</button>-->
+
+</table>
+</body>
+<script>
+
+let url = 'http://localhost:3333/ongs'
+
+const frmForm = document.getElementById('btnPost')
+
+frmForm.addEventListener("submit", postData, true)
+
+
+async  function postData() {
+        
+
+
+        var data = JSON.stringify({
+
+            "name": document.getElementById('inpName').value,
+            "email": document.getElementById('inpEmail').value,
+            "whatsapp": document.getElementById('inpWhatsapp').value,
+            "city": document.getElementById('inpCity').value,
+            "uf": document.getElementById('inpUF').value
+            
+            //  "name": "123123",
+            //  "email": "asd@as.sa",
+            //  "whatsapp": "123123123",
+            //  "city": "as",
+            //  "uf": "as"
+
+        });
+
+        console.log(data, url)
+
+        const res = await fetch(url, {
+            method: "post",
+            body: data,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        
+        if (res.ok) {
+            let resp = await res.json();
+            console.log(resp);
+        } else {
+            console.log('erro: ' + res.status)
+        }
+
+    }
+</script>
